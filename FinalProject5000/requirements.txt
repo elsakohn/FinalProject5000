@@ -1,6 +1,5 @@
 Flask
 pandas
 flask_wtf
-wtforms
 matplotlib
 requests

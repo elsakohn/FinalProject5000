@@ -87,17 +87,59 @@ def register():
         message='Your application description page.'
 
     )
-@app.route('/login')
-def login():
-    """Renders the login page."""
+@app.route('/Login', methods=['GET', 'POST'])
+def Login():
+    form = LoginFormStructure(request.form)
+
+    if (request.method == 'POST' and form.validate()):
+        if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
+            flash('Login approved!')
+            #return redirect('<were to go if login is good!')
+        else:
+            flash('Error in - Username and/or password')
+   
     return render_template(
-        'login.html',
-        title='login',
+        'Login.html', 
+        form=form, 
+        title='Login to data analysis',
         year=datetime.now().year,
-        message='Your application description page.'
-    )
+        repository_name='Pandas',
+        )
+
+@app.route('/Query', methods=['GET', 'POST'])
+def Query():
+
+    Name = None
+    Country = ''
+    capital = ''
+    df = pd.read_csv(path.join(path.dirname(_file_), 'static\\Data\\קובץ נתונים בתי מלון בישראל.csv'))
+    df = df.set_index('Country')
+
+    raw_data_table = df.to_html(classes = 'table table-hover')
+
+    form = QueryFormStructure(request.form)
+     
+    if (request.method == 'POST' ):
+        name = form.name.data
+        Country = name
+        if (name in df.index):
+            capital = df.loc[name,'Capital']
+            raw_data_table = ""
+        else:
+            capital = name + ', no such country'
+        form.name.data = ''
 
 
+
+    return render_template('Query.html', 
+            form = form, 
+            name = capital, 
+            Country = Country,
+            raw_data_table = raw_data_table,
+            title='Query by the user',
+            year=datetime.now().year,
+            message='This page will use the web forms to get user input'
+        )
 
 
 

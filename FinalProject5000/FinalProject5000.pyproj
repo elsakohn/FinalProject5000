@@ -50,7 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FinalProject5000\static\data\קובץ נתונים בתי מלון בישראל.xlsx" />
-    <Content Include="FinalProject5000\templates\login.html" />
+    <Content Include="FinalProject5000\templates\Login.html" />
+    <Content Include="FinalProject5000\templates\Query.html" />
     <Content Include="FinalProject5000\templates\register.html" />
     <Content Include="requirements.txt" />
     <Content Include="FinalProject5000\static\content\bootstrap.css" />
