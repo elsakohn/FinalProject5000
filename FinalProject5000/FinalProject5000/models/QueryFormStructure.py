@@ -8,6 +8,7 @@ from wtforms import StringField, SubmitField
 from wtforms import Form, BooleanField, PasswordField
 from wtforms import TextField, TextAreaField, SelectField, DateField
 from wtforms import validators, ValidationError
+from wtforms import TextField, TextAreaField, SelectField
 
 from wtforms.validators import DataRequired
 ### ----------------------------------------------------------- ###
@@ -75,5 +76,9 @@ class UserRegistrationFormStructure(FlaskForm):
 #class DataParametersFormStructure(FlaskForm):
 #    
 #    submit = SubmitField('Submit')
+
+class MyForm(FlaskForm):
+    city_name = SelectField('Select city:' , validators = [DataRequired()] , choices=[('Tel Aviv Jaffa', 'Tel Aviv Jaffa'), ('Jerusalem', 'Jerusalem'), ('Eilat', 'Eilat'), ('Haifa', 'Haifa')])
+    subnmit = SubmitField('submit')
 
 

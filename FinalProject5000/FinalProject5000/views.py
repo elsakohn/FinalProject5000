@@ -7,6 +7,9 @@ from flask import render_template
 from FinalProject5000 import app
 from FinalProject5000.models.LocalDataBase import create_LocalDatabaseServiceRoutines
 
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from FinalProject5000.plot_service_functions import plot_to_img
 
 from datetime import datetime
 from flask import render_template, redirect, request
@@ -36,6 +39,11 @@ from wtforms import ValidationError
 from FinalProject5000.models.QueryFormStructure import QueryFormStructure 
 from FinalProject5000.models.QueryFormStructure import LoginFormStructure 
 from FinalProject5000.models.QueryFormStructure import UserRegistrationFormStructure 
+from FinalProject5000.models.QueryFormStructure import MyForm
+
+db_Functions = create_LocalDatabaseServiceRoutines() 
+ 
+
 
 @app.route('/')
 @app.route('/home')
@@ -62,9 +70,9 @@ def about():
     """Renders the about page."""
     return render_template(
         'about.html',
-        title='About',
+        title='About my final project',
         year=datetime.now().year,
-        message='Your application description page.'
+        message=''
     )
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -75,7 +83,7 @@ def register():
             db_Functions.AddNewUser(form)
             db_table = ""
             flash('Thanks for registering new user - '+ form.FirstName.data + " " + form.LastName.data )
-            # Here you should put what to do (or were to go) if registration was good
+            
         else:
             flash('Error: User with this Username already exist ! - '+ form.username.data)
             form = UserRegistrationFormStructure(request.form)
@@ -112,7 +120,7 @@ def Query():
     Name = None
     Country = ''
     capital = ''
-    df = pd.read_csv(path.join(path.dirname(_file_), 'static\\Data\\קובץ נתונים בתי מלון בישראל.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\קובץ נתונים בתי מלון בישראל.csv'))
     df = df.set_index('Country')
 
     raw_data_table = df.to_html(classes = 'table table-hover')
@@ -140,6 +148,83 @@ def Query():
             year=datetime.now().year,
             message='This page will use the web forms to get user input'
         )
+
+@app.route('/plot_demo' , methods = ['GET' , 'POST'])
+def plot_demo():
+
+    Form1 = MyForm(request.form)
+    
+
+    chart = ''
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\data\\hotel v4.csv'), encoding='utf-8')
+    
+    x=df["Name"].tolist()
+    name_choices=list(zip(x,x))
+
+    MyForm.city_name.choices = name_choices
+    if request.method == 'POST':
+        level = MyForm.My.data
+        name_list = MyForm.name.data
+        print(name_list)
+        #df-df.drop(df.index{[0]})
+        df = df.drop('Name',1)
+        df = df.set_index('City')
+        df.index=df.index.astype(str)
+        print(df)
+        print(df.index.tolist())
+        df = df.loc[City_list]
+        print(df)
+        df = df.transpose()
+        print(df)
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        fig.subplots_adjust(bottom=0.4)
+        df.plot(kind='bar',ax=ax)
+        chart = plot_to_img(fig)
+    df = df.groupby('City').sum()
+    df = df.transpose()
+    df = df.reset_index()
+    df = df.tail(30)
+
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    df.plot(ax = ax , kind = 'bar')
+    chart = plot_to_img(fig)
+    
+    return render_template(
+        'plot_demo.html',
+        img_under_construction = '/static/imgs/under_construction.png',
+        chart = chart ,
+        height = 300 ,
+        width = 750
+    )
+@app.route('/DataModel')
+def DataModel():
+    """renders the contact page."""
+    return render_template(
+        'DataModel.html',
+        title= 'this is the data model of hotels',
+        year=datetime.now().year,
+        message='this page will show you the table of hotels in israel'
+        )
+@app.route('/DataSet1')
+def DataSet1():
+
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\data\\hotel v4.csv'), encoding='utf-8')
+    raw_data_table = df.to_html(classes = 'table table-hover')
+
+
+    """ renders the contact page. """
+    return render_template(
+        'DataSet1.html',
+        title ='this is the data set page',
+        raw_data_table = raw_data_table,
+        year=datetime.now().year,
+        message='in this page we will see the data set of the hotels'
+        )
+
+
 
 
 

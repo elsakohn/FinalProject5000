@@ -3,3 +3,5 @@ pandas
 flask_wtf
 matplotlib
 requests
+wtforms
+bootstrap

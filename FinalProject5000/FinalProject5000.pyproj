@@ -34,6 +34,9 @@
     <Compile Include="FinalProject5000\models\QueryFormStructure.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FinalProject5000\plot_service_functions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="FinalProject5000\__init__.py" />
     <Compile Include="FinalProject5000\views.py" />
@@ -49,7 +52,16 @@
     <Folder Include="FinalProject5000\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FinalProject5000\static\data\קובץ נתונים בתי מלון בישראל.xlsx" />
+    <Content Include="..\..\..\..\..\אני\hotels.csv">
+      <Link>FinalProject5000\static\data\hotels.csv</Link>
+    </Content>
+    <Content Include="FinalProject5000\static\data\hotel v4.csv" />
+    <Content Include="FinalProject5000\static\data\hotels v2.csv" />
+    <Content Include="FinalProject5000\static\data\hotels-v3.csv" />
+    <Content Include="FinalProject5000\static\data\users.csv" />
+    <Content Include="FinalProject5000\templates\DataModel.html" />
+    <Content Include="FinalProject5000\templates\DataSet1.html" />
+    <Content Include="FinalProject5000\templates\plot_demo.html" />
     <Content Include="FinalProject5000\templates\Login.html" />
     <Content Include="FinalProject5000\templates\Query.html" />
     <Content Include="FinalProject5000\templates\register.html" />

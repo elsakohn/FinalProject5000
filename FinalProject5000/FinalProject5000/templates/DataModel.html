@@ -1,0 +1,40 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+    <body style="background-color:DarkSlateBlue;">
+    </body>
+
+
+<h2>{{title}}</h2>
+<h3>{{message}}</h3>
+
+<div class="row">
+    <div class="col-md">
+        this is a table of hotles.
+        we can see the name of the hotel and which
+        city they are in
+        </div>
+    </div>
+<br />
+<div class="row">
+    <div class="col-md-4"> <img src="https://www.hotels.co.il/images_en/david_dead_sea.jpg" width="200" height="120"
+    <div class="col-md-4"> <img src="https://media-cdn.tripadvisor.com/media/photo-s/03/1d/5f/5f/daniel-dead-sea-hotel.jpg" width="200" height="120"
+    <div class="col-md-4"> <img src="https://travelcomposer.com/wp-content/uploads/2017/08/best-brand-new-hotels-in-israel-copy-1.jpg" width="200" height="120"
+</div>
+<br />
+
+<div class="row" style="">
+    <div class="col-md-4"><strong>Dataset name</strong></div>
+    <div class="col-md-4"><strong>explanation</strong></div>
+    <div class="col-md-4"><strong>link</strong></div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-4">hotels_metdata</div>
+    <div class="col-md-4">the name and the city</div>
+    <div class="col-md-4"><a href="{{ url_for('DataSet1') }}"> go to the dataset about hotels</a></div
+</div>
+
+{% endblock %}

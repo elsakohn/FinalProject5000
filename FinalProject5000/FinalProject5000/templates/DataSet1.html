@@ -1,0 +1,49 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+    <body style="background-color:LavenderBlush;">
+    </body>
+
+
+<h2>{{title}}</h2>
+<h3>{{message}}</h3>
+
+<div class="row" style="background-color:Lavender">
+    <div class="col-md-6"><strong>Name</strong></div>
+    <div class="col-md-6"><strong>the Name of the hotel</strong></div>
+</div>
+<div class="row" style="background-color:Lavender">
+    <div class="col-md-6">City</div>
+    <div class="col-md-6">the city of the hotel</div>
+</div>
+<div class="row" style="background-color:lavender">
+    <div class="col-md-6">Rooms</div>
+    <div class="col-md-6">the number of the rooms in this hotel</div>
+</div>
+
+<br />
+
+<p>
+    <a class="btn btn-succces" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Expand
+    </a>
+    <button type="button" class="btn btn-danger"><span class="cil-contrast btn-icon mr-2"></span> Dange
+    </button>
+
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        {{ raw_data_table | safe}}
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
