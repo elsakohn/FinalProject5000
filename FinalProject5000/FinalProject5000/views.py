@@ -152,39 +152,48 @@ def Query():
 @app.route('/plot_demo' , methods = ['GET' , 'POST'])
 def plot_demo():
 
-    Form1 = MyForm(request.form)
+    Form1 = MyForm()
     
 
     chart = ''
     df = pd.read_csv(path.join(path.dirname(__file__), 'static\\data\\hotel v4.csv'), encoding='utf-8')
     
     x=df["Name"].tolist()
-    name_choices=list(zip(x,x))
+    city_name_choices=list(zip(x,x))
 
-    MyForm.city_name.choices = name_choices
+    MyForm.city_name.choices = city_name_choices
     if request.method == 'POST':
-        level = MyForm.My.data
-        name_list = MyForm.name.data
-        print(name_list)
+        level = MyForm.data
+        city_name_list = MyForm.city_name
+        print(city_name_list)
         #df-df.drop(df.index{[0]})
-        df = df.drop('Name',1)
-        df = df.set_index('City')
-        df.index=df.index.astype(str)
+        df = df.drop('Name',1)# הסרת עמודה
+        df = df.set_index('City') # קובע את עמדת האינדקס
+        df.index=df.index.astype(str)#יוצר אינדקס עם ערכים לפי סוג
         print(df)
-        print(df.index.tolist())
-        df = df.loc[City_list]
+        print(df.index.tolist())#מחזיר רשימה של הערכים
+        df = df.loc[city_name_list]# לבחור שורות לפי האינדקס ולפי שם השורה
         print(df)
         df = df.transpose()
         print(df)
         fig = plt.figure()
-        ax = fig.add_subplot(111)
+        ax = fig.add_subplot(111)#פרמטרים בטבלה
         fig.subplots_adjust(bottom=0.4)
         df.plot(kind='bar',ax=ax)
         chart = plot_to_img(fig)
-    df = df.groupby('City').sum()
-    df = df.transpose()
-    df = df.reset_index()
-    df = df.tail(30)
+    df = df.groupby('City').sum() #לקבץ לעמודות
+    df = df.transpose()#כתיבת שורות כעמודות ולהפך
+    df = df.reset_index()#לאפס את האינדקסים
+    df = df.tail(30)# לראות רק את השורות האחרונות
+
+        
+
+
+
+
+
+
+
 
 
     fig = plt.figure()
@@ -195,6 +204,7 @@ def plot_demo():
     return render_template(
         'plot_demo.html',
         img_under_construction = '/static/imgs/under_construction.png',
+        Form = Form1,
         chart = chart ,
         height = 300 ,
         width = 750

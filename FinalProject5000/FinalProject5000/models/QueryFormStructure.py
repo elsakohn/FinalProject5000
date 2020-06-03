@@ -77,8 +77,10 @@ class UserRegistrationFormStructure(FlaskForm):
 #    
 #    submit = SubmitField('Submit')
 
+##class FlaskForm(FlaskForm):
+    ##city_name = SelectField('Select city:' , validators = [DataRequired()] , choices=[('Tel Aviv Jaffa', 'Tel Aviv Jaffa'), ('Jerusalem', 'Jerusalem'), ('Eilat', 'Eilat'), ('Haifa', 'Haifa')])
+    ##subnmit = SubmitField('submit')
+    
 class MyForm(FlaskForm):
     city_name = SelectField('Select city:' , validators = [DataRequired()] , choices=[('Tel Aviv Jaffa', 'Tel Aviv Jaffa'), ('Jerusalem', 'Jerusalem'), ('Eilat', 'Eilat'), ('Haifa', 'Haifa')])
     subnmit = SubmitField('submit')
-
-

@@ -3,7 +3,7 @@
 {% block content %}
 
 
-    <body style="background-color:DarkSlateBlue;">
+    <body style="background-color:lavender;">
     </body>
 
 <div class="row">
@@ -29,6 +29,25 @@
 
     </div>
 </div>
+
+<form method=post>
+    {{ Form.csrf }}
+    <table>
+        <tr>
+            <td class="input text"> {{ Form.city_name.label }} </td>
+            <td>                    {{ Form.city_name }}       </td>                      
+        </tr>
+        <tr>
+            <td></td>
+            <td class="input submit"> <input type="submit" value="Hotel v4"> </td>
+        </tr>
+    </table>
+</form>
+
+<p><h1>City is : <b>{{city_name}}</b></h1></p>
+
+<h3> table is</h3>
+{{ raw_data_table | safe}}
 
 <hr />
 
